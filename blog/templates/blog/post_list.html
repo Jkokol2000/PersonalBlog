@@ -1,13 +1,15 @@
-{% extends "blog/base.html" %}
 
-{% block content %}
-                    {% for post in posts %}
-                        <article class="post">
-                            <time class="date">
-                                {{ post.published_date }}
-                            </time>
-                            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-                            <p>{{ post.text|linebreaksbr }}</p>
-                        </article>
-                    {% endfor %}
-{% endblock %}
+<div id="posts" hx-confirm="Delete Post?" hx=target="#posts" hx-swap="outerHTML">
+{% for post in posts %}
+    <article class="post">
+        <time class="date">
+            {{ post.published_date }}
+        </time>
+        <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        {% if user.is_authenticated %}
+        <a href="{% url 'delete_post' pk=post.pk%}">Delete?</a>
+        {% endif %}
+        <p>{{ post.text|linebreaksbr }}</p>
+    </article>
+{% endfor %}
+</div>

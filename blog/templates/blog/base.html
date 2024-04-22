@@ -8,7 +8,7 @@
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
         <title>James' Blog</title>
     </head>
-    <body>
+    <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
         <header class="page-header">
             <div class="container">
                 {% if user.is_authenticated %}
@@ -16,17 +16,18 @@
                     {% include './icons/file-earmark-plus.svg' %}
                 </a>
                 {% endif %}
-                    <h1><a href="/">Django Girls Blog</a></h1>
+                    <h1><a href="/">James' Blog</a></h1>
                 
             </div>
         </header>
             <main class="container">
                 <div class="row">
                     <div class="col">
-                    {% block content %}
+                    {% block main %}
                     {% endblock %}
                     </div>
                 </div>
             </main>
+            <script src="https://unpkg.com/htmx.org@1.9.12"></script>
         </body>
 </html>
